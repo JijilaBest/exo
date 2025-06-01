@@ -12,7 +12,8 @@ FROM Utilisateur U
 JOIN Reservation R ON U.ID = R.ID_Etudiant;
 
 Requête de jointure pour récupérer les informations sur le matériel emprunté par un utilisateur donné
-SELECT M.ID, M.Nom, M.Type, M.Etat, R.Date_Emprunt, R.Date_Retour
-FROM Materiel M
-JOIN Reservation R ON M.ID = R.ID_Materiel
+SSELECT M.ID, M.Nom, M.Description, M.Quantite_Disponible, R.Date_Emprunt, R.Date_Retour 
+FROM Materiel M 
+JOIN Reservation R ON M.ID = R.ID_Materiel 
 WHERE R.ID_Etudiant = 1;
+
