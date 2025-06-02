@@ -28,3 +28,18 @@ INSERT INTO Reservation (ID_Etudiant, ID_Materiel, Date_Emprunt, Date_Retour, ID
 VALUES (1, 1, '2025-06-10', '2025-06-15', 1);
 
 Vous pouvez afficher la disponibilité par exemple grâce à l'instruction ``CASE``.
+CREATE TABLE RetourMateriel (
+    ID_Retour SERIAL PRIMARY KEY,
+    ID_Reservation INT REFERENCES Reservation(ID),
+    Date_Retour DATE,
+    Retard BOOLEAN
+);
+ALTER TABLE Reservation ADD COLUMN Date_Retour_Effectif DATE;
+INSERT INTO RetourMateriel (ID_Reservation, Date_Retour, Retard)
+VALUES (1, '2025-06-20', TRUE);
+UPDATE Reservation
+SET Date_Retour_Effectif = '2025-06-20'
+WHERE ID = 1;
+SELECT R.ID, R.Date_Retour, RM.Date_Retour AS Date_Effective, RM.Retard
+FROM Reservation R
+LEFT JOIN RetourMateriel RM ON R.ID = RM.ID_Reservation;
