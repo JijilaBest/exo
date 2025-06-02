@@ -20,3 +20,7 @@ WHERE Quantite_Disponible < 5;
 SELECT ID, Nom, Prenom, Promo
 FROM Utilisateur
 WHERE Mail = 'clara.petit@etu.univ-tours.fr';
+
+
+SELECT * FROM Reservation WHERE Etat_Retour = 'Bon';
+
