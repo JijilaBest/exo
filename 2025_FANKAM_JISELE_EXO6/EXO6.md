@@ -8,8 +8,8 @@ Effectuez des requêtes DELETE pour supprimer des données dans les tables.
 
 1. Requête de suppression d’une réservation existante
 DELETE FROM reservation
-WHERE ID = 5;
+WHERE Id_etudiant = 5;
 
 2. Requête de suppression d'une réservation ou la date de retour prévue est passée.
- DELETE FROM reservation
+DELETE FROM reservation
 WHERE Date_Retour < CURRENT_DATE;
