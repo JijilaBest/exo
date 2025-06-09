@@ -1,0 +1,42 @@
+Exécutez une recherche impliquant des jointures entre les tables:
+Matériel
+Réservation
+Utilisateur
+Disponibilité
+EXPLAIN
+SELECT
+    u.nom,
+    u.prenom,
+    m.nom AS materiel_nom,
+    d.Date_Debut,
+    d.Date_Fin,
+    r.Date_Emprunt,
+    r.Date_Retour,
+    r.Etat_Retour,
+    r.Date_Retour_Effectif
+FROM reservation r
+JOIN utilisateur u ON r.ID_Etudiant = u.ID
+JOIN materiel m ON r.ID_Materiel = m.ID
+JOIN disponibilite d ON r.ID_Disponibilite = d.ID_Disponibilite
+WHERE d.Date_Debut > '2025-06-01'
+LIMIT 100;
+
+
+Faites une recherche en vous basant comme critère sur une des colonnes de la table de réservation (ex. la date de début de disponibilité).
+Affichez le plan d' exécution de la requête à l'aide de l'instruction EXPLAIN ANALYZE. Analysez et indiquez la cause du ralentissement.
+Vous pouvez également consulter l'onglet `Explain`` pour avoir une représentation graphique.
+
+Créer des index pour le champ en question ainsi que les clés étrangères impliquées
+
+CREATE INDEX idx_disponibilite_date_debut ON disponibilite(date_debut);
+CREATE INDEX idx_reservation_numero_etudiant ON reservation(numero_etudiant);
+CREATE INDEX idx_reservation_identifiant_materiel ON reservation(identifiant_materiel);
+CREATE INDEX idx_reservation_id_disponibilite ON reservation(id_disponibilite);
+
+Relancez la requête et affichez une nouvelle fois le plan d'exécution.
+Créer un index pour le nom d'utilisateur et exécuter une recherche impliquant un opérateur like sur le nom (ex. like %nom%1%). Pour cela, il vous faudra activer l'extension gin
+CREATE INDEX idx_utilisateur_nom ON utilisateur(nom);
+EXPLAIN
+SELECT * FROM utilisateur
+WHERE nom LIKE '%nom%1%'
+LIMIT 100;
